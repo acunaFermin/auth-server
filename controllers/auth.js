@@ -46,6 +46,7 @@ const crearUsuario = async ( req, res) => {
             ok:true,
             uid: dbUser.id,
             name,
+            email,
             token,
             msg:'nuevo usuario generado'
         })
@@ -79,7 +80,7 @@ const loginUsuario = async ( req, res = response) => {
 
 
         // confirmar si el password hace match
-        //comparo el password que viene en el body con el de la base de datos
+        // comparo el password que viene en el body con el de la base de datos
         // compareSync devuelve un booleano
         const validPassword = bcrypt.compareSync( password, dbUser.password )
 
@@ -97,6 +98,7 @@ const loginUsuario = async ( req, res = response) => {
             ok: true,
             uid: dbUser.id,
             name: dbUser.name,
+            email: dbUser.email,
             token
         })
 
@@ -116,11 +118,16 @@ const renew = async ( req, res) => {
 
     const token = await generarJWT( uid, name);
 
+    const dbUser = await Usuario.findById(uid);
+
+    
+
     return res.json({
         ok: 'true',
         msg:'renovar jsonwebtoken',
         uid,
         name,
+        email: dbUser.email,
         token
     })
 

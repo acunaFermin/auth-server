@@ -10,7 +10,6 @@ router.post( '/new',[
     //middlewares que se ejecutan antes del controlador crearUsuario
     //los middlewares se ejecutan de manera secuencial
     check('email','introduzca un email correcto').isEmail(),
-    check('name','el nombre es obligatorio').isLength(3),
     check('password','la contraseña debe superar los 6 caracteres').isLength({min: 6}),
     validarCampos
 ] ,  crearUsuario );
@@ -20,7 +19,6 @@ router.post( '/new',[
 router.post( '/', [
     //middlewares que se ejecutan antes del controlador
     check('email','introduzca un email correcto').isEmail(),
-    check('name','el nombre es obligatorio').isLength(3),
     check('password','la contraseña debe superar los 6 caracteres').isLength({min: 6}),
     validarCampos
 ] , loginUsuario );
@@ -29,16 +27,6 @@ router.post( '/', [
 router.get( '/renew', [
     validarJWT
 ], renew );
-
-
-
-
-
-
-
-
-
-
 
 
 module.exports = router;

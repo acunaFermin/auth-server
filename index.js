@@ -1,6 +1,7 @@
 const express = require ('express');
 const cors = require ('cors');
 const dbConnection = require('./db/config');
+const path = require('path')
 require('dotenv').config(); // toma la config por defect del archivo de enviroments
 
 //crear app express
@@ -10,7 +11,7 @@ const app = express();
 //base de datos
 dbConnection();
 
-//DIRECTORIO OPUBLICO
+//DIRECTORIO PUBLICO
 app.use( express.static('public') );
 
 
@@ -41,3 +42,8 @@ app.listen( process.env.PORT, () => {
 
 //middleware para redirigir las consultas a './routes/auth
 app.use(  '/api/auth', require('./routes/auth'));
+
+
+app.get( '*' , ( req , res ) => {
+    res.sendFile( path.resolve( __dirname, 'public/index.html') )
+})
