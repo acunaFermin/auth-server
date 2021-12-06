@@ -43,7 +43,7 @@ app.listen( process.env.PORT, () => {
 //middleware para redirigir las consultas a './routes/auth
 app.use(  '/api/auth', require('./routes/auth'));
 
-
+//arreglo para que angular tome el control del ruteo
 app.get( '*' , ( req , res ) => {
     res.sendFile( path.resolve( __dirname, 'public/index.html') )
 })
